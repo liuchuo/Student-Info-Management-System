@@ -1,0 +1,53 @@
+﻿<Application x:Class="StudentInfoManagmentSystem.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:StudentInfoManagmentSystem"
+             StartupUri="MainWindow.xaml">
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <!-- MahApps.Metro resource dictionaries. -->
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+
+
+        <!-- Material Design -->
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Green.Named.Primary.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Orange.Named.Primary.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Pink.Named.Primary.xaml" />
+
+         <!--Material Design: MahApps Compatibility--> 
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Defaults.xaml "/> 
+      </ResourceDictionary.MergedDictionaries>
+
+
+      <!-- MahApps Brushes -->
+      <SolidColorBrush x:Key="HighlightBrush"    Color="{StaticResource Primary700}"/>
+      <SolidColorBrush x:Key="AccentColorBrush"  Color="{StaticResource Accent100}"/>
+      <SolidColorBrush x:Key="AccentColorBrush2" Color="{StaticResource Accent200}"/>
+      <SolidColorBrush x:Key="AccentColorBrush3" Color="{StaticResource Accent400}"/>
+      <SolidColorBrush x:Key="AccentColorBrush4" Color="{StaticResource Accent700}"/>
+
+      <SolidColorBrush x:Key="WindowTitleColorBrush" Color="{StaticResource Primary500}"/>
+
+      <SolidColorBrush x:Key="IdealForegroundColorBrush" Color="{DynamicResource Primary500Foreground}"/>
+      <SolidColorBrush x:Key="IdealForegroundDisabledBrush" Color="{DynamicResource Primary500}" Opacity="0.4"/>
+
+      <!-- Own Brushes-->
+      <SolidColorBrush x:Key="DangerColorBrush" Color="#FD4482" />
+      <SolidColorBrush x:Key="SuccessColorBrush" Color="{StaticResource GreenPrimary500}" />
+      <SolidColorBrush x:Key="WarningColorBrush" Color="{StaticResource OrangePrimary800}" />
+
+      <SolidColorBrush x:Key="PrimaryColorBrush"  Color="{StaticResource Primary500}"/>
+      <SolidColorBrush x:Key="PrimaryColorBrush2" Color="{StaticResource Primary600}"/>
+      <SolidColorBrush x:Key="PrimaryColorBrush3" Color="{StaticResource Primary700}"/>
+      <SolidColorBrush x:Key="PrimaryColorBrush4" Color="{StaticResource Primary800}"/>
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>

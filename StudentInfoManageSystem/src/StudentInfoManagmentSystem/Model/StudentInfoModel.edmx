@@ -1,0 +1,338 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="College">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Major">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="CollegeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MajorClass">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="MajorId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="MajorClassId" Type="int" Nullable="false" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Sex" Type="nvarchar" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="SUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Pwd" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="CollegeId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_MAJOR_COLLEGE">
+          <End Role="College" Type="Self.College" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Major" Type="Self.Major" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="College">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Major">
+              <PropertyRef Name="CollegeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MAJORCLASS_MAJOR">
+          <End Role="Major" Type="Self.Major" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MajorClass" Type="Self.MajorClass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Major">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MajorClass">
+              <PropertyRef Name="MajorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIUSER_COLLEGE">
+          <End Role="College" Type="Self.College" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SUser" Type="Self.SUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="College">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SUser">
+              <PropertyRef Name="CollegeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STUDENT_MAJORCLASS">
+          <End Role="MajorClass" Type="Self.MajorClass" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MajorClass">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="MajorClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="College" EntityType="Self.College" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Major" EntityType="Self.Major" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MajorClass" EntityType="Self.MajorClass" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SUser" EntityType="Self.SUser" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_MAJOR_COLLEGE" Association="Self.FK_MAJOR_COLLEGE">
+            <End Role="College" EntitySet="College" />
+            <End Role="Major" EntitySet="Major" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MAJORCLASS_MAJOR" Association="Self.FK_MAJORCLASS_MAJOR">
+            <End Role="Major" EntitySet="Major" />
+            <End Role="MajorClass" EntitySet="MajorClass" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIUSER_COLLEGE" Association="Self.FK_SIUSER_COLLEGE">
+            <End Role="College" EntitySet="College" />
+            <End Role="SUser" EntitySet="SUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STUDENT_MAJORCLASS" Association="Self.FK_STUDENT_MAJORCLASS">
+            <End Role="MajorClass" EntitySet="MajorClass" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="College">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Majors" Relationship="Self.FK_MAJOR_COLLEGE" FromRole="College" ToRole="Major" />
+          <NavigationProperty Name="SUsers" Relationship="Self.FK_SIUSER_COLLEGE" FromRole="College" ToRole="SUser" />
+        </EntityType>
+        <EntityType Name="Major">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CollegeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="College" Relationship="Self.FK_MAJOR_COLLEGE" FromRole="Major" ToRole="College" />
+          <NavigationProperty Name="MajorClasses" Relationship="Self.FK_MAJORCLASS_MAJOR" FromRole="Major" ToRole="MajorClass" />
+        </EntityType>
+        <EntityType Name="MajorClass">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MajorId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Major" Relationship="Self.FK_MAJORCLASS_MAJOR" FromRole="MajorClass" ToRole="Major" />
+          <NavigationProperty Name="Students" Relationship="Self.FK_STUDENT_MAJORCLASS" FromRole="MajorClass" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MajorClassId" Type="Int32" Nullable="false" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Sex" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MajorClass" Relationship="Self.FK_STUDENT_MAJORCLASS" FromRole="Student" ToRole="MajorClass" />
+        </EntityType>
+        <EntityType Name="SUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Pwd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CollegeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="College" Relationship="Self.FK_SIUSER_COLLEGE" FromRole="SUser" ToRole="College" />
+        </EntityType>
+        <Association Name="FK_MAJOR_COLLEGE">
+          <End Role="College" Type="Self.College" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Major" Type="Self.Major" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="College">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Major">
+              <PropertyRef Name="CollegeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIUSER_COLLEGE">
+          <End Role="College" Type="Self.College" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SUser" Type="Self.SUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="College">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SUser">
+              <PropertyRef Name="CollegeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MAJORCLASS_MAJOR">
+          <End Role="Major" Type="Self.Major" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MajorClass" Type="Self.MajorClass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Major">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MajorClass">
+              <PropertyRef Name="MajorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STUDENT_MAJORCLASS">
+          <End Role="MajorClass" Type="Self.MajorClass" Multiplicity="1">
+          </End>
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MajorClass">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="MajorClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StudentInfoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Colleges" EntityType="Self.College" />
+          <EntitySet Name="Majors" EntityType="Self.Major" />
+          <EntitySet Name="MajorClasses" EntityType="Self.MajorClass" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <EntitySet Name="SUsers" EntityType="Self.SUser" />
+          <AssociationSet Name="FK_MAJOR_COLLEGE" Association="Self.FK_MAJOR_COLLEGE">
+            <End Role="College" EntitySet="Colleges" />
+            <End Role="Major" EntitySet="Majors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIUSER_COLLEGE" Association="Self.FK_SIUSER_COLLEGE">
+            <End Role="College" EntitySet="Colleges" />
+            <End Role="SUser" EntitySet="SUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MAJORCLASS_MAJOR" Association="Self.FK_MAJORCLASS_MAJOR">
+            <End Role="Major" EntitySet="Majors" />
+            <End Role="MajorClass" EntitySet="MajorClasses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STUDENT_MAJORCLASS" Association="Self.FK_STUDENT_MAJORCLASS">
+            <End Role="MajorClass" EntitySet="MajorClasses" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="StudentInfoEntities">
+          <EntitySetMapping Name="Colleges">
+            <EntityTypeMapping TypeName="Model.College">
+              <MappingFragment StoreEntitySet="College">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Majors">
+            <EntityTypeMapping TypeName="Model.Major">
+              <MappingFragment StoreEntitySet="Major">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CollegeId" ColumnName="CollegeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MajorClasses">
+            <EntityTypeMapping TypeName="Model.MajorClass">
+              <MappingFragment StoreEntitySet="MajorClass">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MajorId" ColumnName="MajorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="Model.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MajorClassId" ColumnName="MajorClassId" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SUsers">
+            <EntityTypeMapping TypeName="Model.SUser">
+              <MappingFragment StoreEntitySet="SUser">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+                <ScalarProperty Name="CollegeId" ColumnName="CollegeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
